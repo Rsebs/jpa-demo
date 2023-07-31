@@ -21,7 +21,7 @@ public class JpaDemoApplication implements CommandLineRunner{
 	}
 
 	public void run(String... args) throws Exception {
-		modificar(2);
+		eliminar();
 	}
 
 	// Create
@@ -50,7 +50,7 @@ public class JpaDemoApplication implements CommandLineRunner{
 		
 	}
 	
-	// Modificar
+	// Update
 	private void modificar(Integer id) {
 		Optional<Categoria> optional = repo.findById(id);
 				
@@ -68,6 +68,12 @@ public class JpaDemoApplication implements CommandLineRunner{
 		} else {
 			System.out.println("Categoria no encontrada");
 		}
+	}
+
+	// Delete
+	private void eliminar() {
+		int idCategoria = 1;
+		repo.deleteById(idCategoria);
 	}
 	
 }
