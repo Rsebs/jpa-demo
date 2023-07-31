@@ -1,5 +1,7 @@
 package net.rj;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ public class JpaDemoApplication implements CommandLineRunner{
 	}
 
 	public void run(String... args) throws Exception {
-		eliminar();
+		encontrarPorIds();
 	}
 
 	// Create
@@ -76,4 +78,26 @@ public class JpaDemoApplication implements CommandLineRunner{
 		repo.deleteById(idCategoria);
 	}
 	
+	// Count
+	private void conteo() {
+		long count = repo.count();
+		System.out.println("Total de categorias: " + count);
+	}
+	
+	// Delete all
+	private void eliminarTodos() {
+		repo.deleteAll();
+	}
+	
+	private void encontrarPorIds() {
+		List<Integer> ids = new LinkedList<>();
+		ids.add(1);
+		ids.add(4);
+		ids.add(10);
+		Iterable<Categoria> categorias = repo.findAllById(ids);
+		
+		for (Categoria cat : categorias) {
+			System.out.println(cat);
+		}
+	}
 }
