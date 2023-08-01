@@ -128,7 +128,7 @@ public class JpaDemoApplication implements CommandLineRunner{
 		// Categoria 1
 		Categoria cat1 = new Categoria();
 		cat1.setNombre("Programador de Blockchain");
-		cat1.setDescripcion("Trabajos relacionados con bitcoin y Criptomonedas");
+		cat1.setDescripcion("Trabajos relacionados con Bitcoin y Criptomonedas");
 
 		// Categoria 2
 		Categoria cat2 = new Categoria();
