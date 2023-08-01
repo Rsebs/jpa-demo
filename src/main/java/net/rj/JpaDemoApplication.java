@@ -23,7 +23,7 @@ public class JpaDemoApplication implements CommandLineRunner{
 	}
 
 	public void run(String... args) throws Exception {
-		guardarTodas();
+		
 	}
 
 	// Create
