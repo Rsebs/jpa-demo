@@ -23,7 +23,7 @@ public class JpaDemoApplication implements CommandLineRunner{
 	}
 
 	public void run(String... args) throws Exception {
-		encontrarPorIds();
+		guardarTodas();
 	}
 
 	// Create
@@ -78,17 +78,18 @@ public class JpaDemoApplication implements CommandLineRunner{
 		repo.deleteById(idCategoria);
 	}
 	
-	// Count
+	// count
 	private void conteo() {
 		long count = repo.count();
 		System.out.println("Total de categorias: " + count);
 	}
 	
-	// Delete all
+	// deleteAll
 	private void eliminarTodos() {
 		repo.deleteAll();
 	}
 	
+	// findById
 	private void encontrarPorIds() {
 		List<Integer> ids = new LinkedList<>();
 		ids.add(1);
@@ -100,4 +101,49 @@ public class JpaDemoApplication implements CommandLineRunner{
 			System.out.println(cat);
 		}
 	}
+	
+	// findAll
+	private void buscarTodos() {
+		Iterable<Categoria> categorias = repo.findAll();
+		for (Categoria cat : categorias) {
+			System.out.println(cat);
+		}
+	}
+	
+	// existsById
+	private void existeId(Integer id) {
+		boolean existe = repo.existsById(id);
+		System.out.println("La categoria existe: " + existe);
+	}
+	
+	// saveAll
+	private void guardarTodas() {
+		 repo.saveAll(getListaCategoria());
+	}
+	
+	// Método que regresa una lista de 3 Categorias
+	private List<Categoria> getListaCategoria() {
+		List<Categoria> lista = new LinkedList<>();
+		
+		// Categoria 1
+		Categoria cat1 = new Categoria();
+		cat1.setNombre("Programador de Blockchain");
+		cat1.setDescripcion("Trabajos relacionados con bitcoin y Criptomonedas");
+
+		// Categoria 2
+		Categoria cat2 = new Categoria();
+		cat2.setNombre("Soldador/Pintura");
+		cat2.setDescripcion("Trabajos relacionados con soldadura, pintura y enderezado");
+		
+		// Categoria 3
+		Categoria cat3 = new Categoria();
+		cat3.setNombre("Ingeniero Industrial");
+		cat3.setDescripcion("Trabajos relacionados con Ingenieria industrial");
+		
+		lista.add(cat1);
+		lista.add(cat2);
+		lista.add(cat3);
+		return lista;
+	}
+	
 }
