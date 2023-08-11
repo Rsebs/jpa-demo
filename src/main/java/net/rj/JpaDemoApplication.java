@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import net.rj.model.Categoria;
 import net.rj.repository.CategoriasRepository;
@@ -23,7 +26,7 @@ public class JpaDemoApplication implements CommandLineRunner{
 	}
 
 	public void run(String... args) throws Exception {
-		
+		buscarTodosPaginacionOrdenados();
 	}
 
 	// Create
@@ -145,5 +148,44 @@ public class JpaDemoApplication implements CommandLineRunner{
 		lista.add(cat3);
 		return lista;
 	}
+	
+	// findAll - JPA
+	private void buscarTodosJpa() {
+		List<Categoria> categorias = repo.findAll();
+		for (Categoria c : categorias) {
+			System.out.println(c.getId() + " " + c.getNombre());
+		}
+	}
+	
+	// deleteAllInBatch - JPA
+	private void borrarTodoEnBloque() {
+		repo.deleteAllInBatch();
+	}
+	
+	// findAll [Ordenados por un campo] - JPA
+	private void buscarTodosOrdenados() {
+		List<Categoria> categorias = repo.findAll(Sort.by("nombre").descending());
+		for (Categoria c : categorias) {
+			System.out.println(c.getId() + " " + c.getNombre());
+		}
+	}
+	
+	// findAll [Con Paginación] - JPA
+	private void buscarTodosPaginacion() {
+		Page<Categoria> page = repo.findAll(PageRequest.of(0, 5));
+		System.out.println("Total Registros: " + page.getTotalElements());
+		System.out.println("Total Páginas: " + page.getTotalPages());
+		for (Categoria c : page.getContent()) {
+			System.out.println(c.getId() + " " + c.getNombre());
+		}
+	}
+	
+	// findAll [Con Paginación y Ordenados] - JPA
+		private void buscarTodosPaginacionOrdenados() {
+			Page<Categoria> page = repo.findAll(PageRequest.of(0, 5, Sort.by("nombre")));
+			for (Categoria c : page.getContent()) {
+				System.out.println(c.getId() + " " + c.getNombre());
+			}
+		}
 	
 }
