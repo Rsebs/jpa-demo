@@ -14,8 +14,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 
 import net.rj.model.Categoria;
+import net.rj.model.Perfil;
 import net.rj.model.Vacante;
 import net.rj.repository.CategoriasRepository;
+import net.rj.repository.PerfilesRepository;
+import net.rj.repository.UsuariosRepository;
 import net.rj.repository.VacantesRepository;
 
 @SpringBootApplication
@@ -25,13 +28,22 @@ public class JpaDemoApplication implements CommandLineRunner{
 	private CategoriasRepository repoCategorias;
 	@Autowired
 	private VacantesRepository repoVacantes;
+	@Autowired
+	private UsuariosRepository repoUsuarios;
+	@Autowired
+	private PerfilesRepository repoPerfiles;
+	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(JpaDemoApplication.class, args);
 	}
 
 	public void run(String... args) throws Exception {
-		guardarVacante();
+		crearPerfilesAplicacion();
+	}
+	
+	private void crearPerfilesAplicacion() {
+		repoPerfiles.saveAll(getPerfilesAplicacion());
 	}
 	
 	private void guardarVacante() {
@@ -219,4 +231,28 @@ public class JpaDemoApplication implements CommandLineRunner{
 		}
 	}
 	
+		/**
+		 * Metodo que regresa una lista de objetos de tipo Perfil que representa los diferentes PERFILES
+		 * O ROLES que tendremos en nuestra aplicación de Empleos
+		 * @return
+		 */
+		private List<Perfil> getPerfilesAplicacion() {
+			List<Perfil> lista = new LinkedList<>();
+			Perfil per1 = new Perfil();
+			per1.setPerfil("SUPERVISOR");
+			
+			Perfil per2 = new Perfil();
+			per2.setPerfil("ADMINISTRADOR");
+			
+			Perfil per3 = new Perfil();
+			per3.setPerfil("USUARIO");
+			
+			lista.add(per1);
+			lista.add(per2);
+			lista.add(per3);
+			
+			return lista;
+		}
+	
 }
+
