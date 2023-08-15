@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 
 import net.rj.model.Categoria;
 import net.rj.model.Perfil;
+import net.rj.model.Usuario;
 import net.rj.model.Vacante;
 import net.rj.repository.CategoriasRepository;
 import net.rj.repository.PerfilesRepository;
@@ -39,7 +40,31 @@ public class JpaDemoApplication implements CommandLineRunner{
 	}
 
 	public void run(String... args) throws Exception {
-		crearPerfilesAplicacion();
+		crearUsuarioConDosPerfiles();
+	}
+	
+	/**
+	 * Crear un usuario con 2 perfiles ("ADMINISTRADOR", "USUARIO")
+	 */
+	private void crearUsuarioConDosPerfiles()  {
+		Usuario user = new Usuario();
+		user.setNombre("Sebastián Ruiz");
+		user.setEmail("sebastianruizj2014@gmail.com");
+		user.setFechaRegistro(new Date());
+		user.setUsername("sebs");
+		user.setPassword("12345");
+		user.setEstatus(1);
+		
+		Perfil per1 = new Perfil();
+		per1.setId(2);
+		
+		Perfil per2 = new Perfil();
+		per2.setId(3);
+		
+		user.agregar(per1);
+		user.agregar(per2);
+		
+		repoUsuarios.save(user);
 	}
 	
 	private void crearPerfilesAplicacion() {

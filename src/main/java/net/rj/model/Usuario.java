@@ -1,6 +1,7 @@
 package net.rj.model;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -31,6 +32,13 @@ public class Usuario {
 			joinColumns = @JoinColumn(name = "idUsuario"),
 			inverseJoinColumns = @JoinColumn(name = "idPerfil"))
 	private List<Perfil> perfiles;
+	
+	public void agregar(Perfil tempPerfil) {
+		if (perfiles == null) {
+			perfiles = new LinkedList<>();
+		}
+		perfiles.add(tempPerfil);
+	}
 	
 	public Integer getId() {
 		return id;
